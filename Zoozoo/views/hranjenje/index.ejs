@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hranjenje List</title>
+
+    <link rel="stylesheet" type="text/css" href="/css/styles.css" />
+</head>
+
+<body>
+    <div class="header header-pages">
+        <div class="sides">
+            <span class="logo"><a href="/">ADMIN</a></span>
+        </div>
+        <div class="sides" id="zoo-navigation">
+            <ul class="menu">
+                <li class="menu-item">
+                    <a href="#">Ulaznice</a>
+                    <ul class="dropdown">
+                        <li><a href="/ulaznice">Evidencija ulaznica</a></li>
+                    </ul>
+                </li>
+                <li class="menu-item">
+                    <a href="#">Održavanje</a>
+                    <ul class="dropdown">
+                        <li><a href="/odrzavanje">Evidencija održavanja</a></li>
+                        <li><a href="/vrsta_odrzavanja">Vrste održavanja</a></li>
+                        <li><a href="/hrana">Dostupni resursi</a></li>
+                        <li><a href="/hranjenje">Evidentiraj potrošene resurse</a></li>
+                    </ul>
+                </li>
+                <li class="menu-item">
+                    <a href="#">Zaposlenici</a>
+                    <ul class="dropdown">
+                        <li><a href="/zaposlenici">Popis zaposlenika</a></li>
+                        <li><a href="/pozicija">Pozicije</a></li>
+                    </ul>
+                </li>
+                <li class="menu-item">
+                    <a href="#">Životinje</a>
+                    <ul class="dropdown">
+                        <li><a href="/podrucja">Područja zoološkog</a></li>
+                        <li><a href="/smjestaj">Smještaji</a></li>
+                        <li><a href="/vrste_zivotinja">Vrste životinja</a></li>
+                        <li><a href="/zivotinje">Životinje u našem zoološkom</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="zoo-spacing">
+        <h1>Hranjenje List</h1>
+        <a class="add-new-zoo" href="/hranjenje/new"><img style="height: 2.5em; margin-left: 15px;"
+                src="/assets/add_6431853.png"></a>
+        <ul class="lista-zoo">
+            <li class="top-level-list">
+                <div class="lista-info-zoo">
+                    <span>
+                        Zaposlenik
+                    </span>
+                    <span>
+                        Hrana
+                    </span>
+                    <span>
+                        Smjestaj
+                    </span>
+                    <span>
+                        Datum i vrijeme
+                    </span>
+                </div>
+                <div class="inside"></div>
+            </li>
+            <% hranjenje.forEach(function(hranjenje) { %>
+                <li>
+                    <div class="lista-info-zoo">
+                        <span>
+                            <%= hranjenje.Zaposlenik %>
+                        </span> <span>
+                            <%= hranjenje.Hrana %>
+                        </span> <span>
+                            <%= hranjenje.Smjestaj %>
+                        </span> <span>
+                            <%= moment(hranjenje.Datum_i_vrijeme).format('MMMM Do YYYY, h:mm:ss a') %>
+                        </span>
+                    </div>
+                    <div class="inside"><a class="zoo-info-edit" href="/hranjenje/<%= hranjenje._id %>/edit"><img
+                                style="height: 1em;" src="/assets/pen_10337031.png"></img></a>
+                        <form action="/hranjenje/<%= hranjenje._id %>/delete" method="post" style="display:inline;">
+                            <input type="hidden" name="_method" value="DELETE">
+                            <button class="zoo-info-delete" type="submit">Delete</button>
+                        </form>
+                    </div>
+                </li>
+                <% }); %>
+        </ul>
+    </div>
+</body>
+
+</html>
