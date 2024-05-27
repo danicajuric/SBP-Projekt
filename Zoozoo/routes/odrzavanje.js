@@ -7,14 +7,16 @@ const Smjestaj = require('../models/smjestaj');
 const VrstaOdrzavanja = require('../models/vrsta_odrzavanja');
 
 // Prikaz svih održavanja
+// Prikaz svih održavanja
 router.get('/', async (req, res) => {
     try {
-        const odrzavanja = await Odrzavanje.find();
+        const odrzavanja = await Odrzavanje.find().populate('Zaposlenik').populate('Smjestaj').populate('Vrsta_odrzavanja');
         res.render('odrzavanje/index', { odrzavanja });
     } catch (err) {
         res.status(500).send(err);
     }
 });
+
 
 // Dodavanje novog održavanja
 router.get('/new', async (req, res) => {

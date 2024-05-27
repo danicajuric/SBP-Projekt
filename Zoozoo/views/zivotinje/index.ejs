@@ -1,10 +1,10 @@
-<!-- views/zivotinje/index.ejs -->
 <!DOCTYPE html>
 <html>
 
 <head>
     <title>Zivotinje List</title>
     <link rel="stylesheet" type="text/css" href="/css/styles.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
 </head>
 
 <body>
@@ -49,40 +49,37 @@
         </div>
     </div>
     <div class="zoo-spacing">
-        <h1>Zivotinje List</h1>
+        <h1>Lista Životinja</h1>
         <a class="add-new-zoo" href="/zivotinje/new"><img style="height: 2.5em; margin-left: 15px;"
                 src="/assets/add_6431853.png"></a>
         <ul class="lista-zoo">
             <li class="top-level-list">
                 <div class="lista-info-zoo">
-                    <span>
-                        Ime
-                    </span> 
-                    <span>
-                        Datum rođenja
-                    </span> 
-                    <span>
-                        Zemlja podrijekla
-                    </span>
+                    <span>Ime</span>
+                    <span>Datum rođenja</span>
+                    <span>Zemlja podrijetla</span>
+                    <span>Posebne napomene</span>
                 </div>
                 <div class="inside"></div>
             </li>
-            <% zivotinje.forEach(z=> { %>
+            <% zivotinje.forEach(z => { %>
                 <li>
                     <div class="lista-info-zoo">
-                    <span><%= z.Ime %></span> <span><%= moment(z.Datum_rodjenj).format('MMMM Do YYYY, h:mm:ss a') %></span> <span><%= z.Zemlje_podrijetla %></span>
+                        <span><%= z.Ime %></span>
+                        <span><%= moment(z.Datum_rodjenj).format('MMMM Do YYYY, h:mm:ss a') %></span>
+                        <span><%= z.Zemlje_podrijetla %></span>
+                        <span><%= z.Posebne_napomene %></span>
                     </div>
                     <div class="inside">
                         <a class="zoo-info-edit" href="/zivotinje/<%= z._id %>/edit"><img style="height: 1em;"
-                                src="/assets/pen_10337031.png"></img></a>
+                                src="/assets/pen_10337031.png"></a>
                         <form action="/zivotinje/<%= z._id %>/delete" method="post" style="display:inline;">
                             <button class="zoo-info-delete" type="submit">Delete</button>
                         </form>
                     </div>
                 </li>
-                <% }) %>
+            <% }) %>
         </ul>
-
     </div>
 </body>
 

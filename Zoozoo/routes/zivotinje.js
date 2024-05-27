@@ -1,12 +1,12 @@
-// routes/zivotinje.js
 const express = require('express');
 const router = express.Router();
 const Zivotinje = require('../models/zivotinje');
+const Smjestaj = require('../models/smjestaj'); // Dodajemo model za smještaj
 
 // Prikaz svih životinja
 router.get('/', async (req, res) => {
     try {
-        const zivotinje = await Zivotinje.find();
+        const zivotinje = await Zivotinje.find().populate('Smjestaj');
         res.render('zivotinje/index', { zivotinje });
     } catch (err) {
         res.status(500).send(err);
@@ -14,13 +14,18 @@ router.get('/', async (req, res) => {
 });
 
 // Dodavanje nove životinje
-router.get('/new', (req, res) => {
-    res.render('zivotinje/new');
+router.get('/new', async (req, res) => {
+    try {
+        const smjestaji = await Smjestaj.find(); // Dohvaćamo sve smještaje iz baze
+        res.render('zivotinje/new', { smjestaji });
+    } catch (err) {
+        res.status(500).send(err);
+    }
 });
 
 router.post('/', async (req, res) => {
-    const { Ime, DatumRodjenja, ZemljaPodrijetla, DatumNabavke, PosebneNapomene, Smjestaj } = req.body;
-    const novaZivotinja = new Zivotinje({ Ime, DatumRodjenja, ZemljaPodrijetla, DatumNabavke, PosebneNapomene, Smjestaj });
+    const { Ime, Datum_rodjenj, Zemlje_podrijetla, Datum_nabavke, Posebne_napomene, Smjestaj } = req.body;
+    const novaZivotinja = new Zivotinje({ Ime, Datum_rodjenj, Zemlje_podrijetla, Datum_nabavke, Posebne_napomene, Smjestaj });
 
     try {
         await novaZivotinja.save();
@@ -34,20 +39,25 @@ router.post('/', async (req, res) => {
 router.get('/:id/edit', async (req, res) => {
     try {
         const zivotinja = await Zivotinje.findById(req.params.id);
+        const smjestaji = await Smjestaj.find(); // Dohvaćamo sve smještaje iz baze
         if (!zivotinja) {
             return res.status(404).send('Životinja nije pronađena.');
         }
-        res.render('zivotinje/edit', { zivotinja });
+        res.render('zivotinje/edit', { zivotinja, smjestaji });
     } catch (err) {
         res.status(500).send(err);
     }
 });
 
 // Ažuriranje podataka o životinji
-router.put('/:id', async (req, res) => {
-    const { Ime, DatumRodjenja, ZemljaPodrijetla, DatumNabavke, PosebneNapomene, Smjestaj } = req.body;
+router.post('/:id', async (req, res) => {
+    const { Ime, Datum_rodjenj, Zemlje_podrijetla, Datum_nabavke, Posebne_napomene, Smjestaj } = req.body;
     try {
-        const updatedZivotinja = await Zivotinje.findByIdAndUpdate(req.params.id, { Ime, DatumRodjenja, ZemljaPodrijetla, DatumNabavke, PosebneNapomene, Smjestaj }, { new: true });
+        const updatedZivotinja = await Zivotinje.findByIdAndUpdate(
+            req.params.id,
+            { Ime, Datum_rodjenj, Zemlje_podrijetla, Datum_nabavke, Posebne_napomene, Smjestaj },
+            { new: true }
+        );
         if (!updatedZivotinja) {
             return res.status(404).send('Životinja nije pronađena.');
         }
@@ -68,3 +78,4 @@ router.post('/:id/delete', async (req, res) => {
 });
 
 module.exports = router;
+

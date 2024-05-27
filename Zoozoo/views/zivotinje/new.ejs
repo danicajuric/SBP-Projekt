@@ -1,8 +1,7 @@
-<!-- views/zivotinje/new.ejs -->
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Add Zivotinja</title>
+    <title>Dodaj novu životinju</title>
     <link rel="stylesheet" type="text/css" href="/css/styles.css" />
 </head>
 <body>
@@ -51,19 +50,34 @@
             <h1>NOVO</h1>
         </div>
         <div class="text-side-zoo">
-            <h2>Hrana</h2>
-    <form class="zoo-edit-view-form"  action="/zivotinje" method="POST">
-        <label for="Ime">Ime:</label>
-        <input type="text" id="Ime" name="Ime" required>
-        <br>
-        <label for="Datum_rodjenj">Datum rodjenj:</label>
-        <input type="date" id="Datum_rodjenj" name="Datum_rodjenj" required>
-        <br>
-        <label for="Zemlje_podrijetla">Zemlje podrijetla:</label>
-        <input type="text" id="Zemlje_podrijetla" name="Zemlje_podrijetla" required>
-        <br>
-        <button type="submit">Submit</button>
-    </form></div>
-</div>
+            <h2>Dodaj novu životinju</h2>
+            <form class="zoo-edit-view-form" action="/zivotinje" method="POST">
+                <label for="Ime">Ime:</label>
+                <input type="text" id="Ime" name="Ime" required>
+                <br>
+                <label for="Datum_rodjenj">Datum rođenja:</label>
+                <input type="date" id="Datum_rodjenj" name="Datum_rodjenj" required>
+                <br>
+                <label for="Zemlje_podrijetla">Zemlja podrijetla:</label>
+                <input type="text" id="Zemlje_podrijetla" name="Zemlje_podrijetla" required>
+                <br>
+                <label for="Datum_nabavke">Datum nabavke:</label>
+                <input type="date" id="Datum_nabavke" name="Datum_nabavke" required>
+                <br>
+                <label for="Posebne_napomene">Posebne napomene:</label>
+                <textarea id="Posebne_napomene" name="Posebne_napomene"></textarea>
+                <br>
+                <label for="Smjestaj">Smještaj:</label>
+                <select id="Smjestaj" name="Smjestaj" required>
+                    <% smjestaji.forEach(smjestaj => { %>
+                        <option value="<%= smjestaj._id %>"><%= smjestaj.naziv %></option>
+                    <% }) %>
+                </select>
+                <br>
+                <button type="submit">Dodaj</button>
+            </form>
+        </div>
+    </div>
 </body>
 </html>
+

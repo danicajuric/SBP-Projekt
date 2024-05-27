@@ -1,6 +1,8 @@
+// routes/zaposlenici.js
 const express = require('express');
 const router = express.Router();
 const Zaposlenici = require('../models/zaposlenici');
+const Pozicija = require('../models/pozicija'); // Dodajemo model za poziciju
 
 // Get all zaposlenici
 router.get('/', async (req, res) => {
@@ -13,8 +15,13 @@ router.get('/', async (req, res) => {
 });
 
 // Get form to create new zaposlenik
-router.get('/new', (req, res) => {
-    res.render('zaposlenici/new');
+router.get('/new', async (req, res) => {
+    try {
+        const pozicije = await Pozicija.find(); // Dohvaćamo sve pozicije iz baze
+        res.render('zaposlenici/new', { pozicije });
+    } catch (err) {
+        res.status(500).send(err);
+    }
 });
 
 // Create new zaposlenik
@@ -34,7 +41,8 @@ router.post('/', async (req, res) => {
 router.get('/:id/edit', async (req, res) => {
     try {
         const zaposlenik = await Zaposlenici.findById(req.params.id);
-        res.render('zaposlenici/edit', { zaposlenik });
+        const pozicije = await Pozicija.find(); // Dohvaćamo sve pozicije iz baze
+        res.render('zaposlenici/edit', { zaposlenik, pozicije });
     } catch (err) {
         res.status(500).send(err);
     }

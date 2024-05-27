@@ -1,7 +1,7 @@
-// routes/ulaznice.js
 const express = require('express');
 const router = express.Router();
 const Ulaznice = require('../models/ulaznice');
+const Zaposlenici = require('../models/zaposlenici');
 
 // Prikaz svih ulaznica
 router.get('/', async (req, res) => {
@@ -13,11 +13,17 @@ router.get('/', async (req, res) => {
     }
 });
 
-// Dodavanje nove ulaznice
-router.get('/new', (req, res) => {
-    res.render('ulaznice/new');
+// Dodavanje nove ulaznice - prikaz forme
+router.get('/new', async (req, res) => {
+    try {
+        const zaposlenici = await Zaposlenici.find();
+        res.render('ulaznice/new', { zaposlenici });
+    } catch (err) {
+        res.status(500).send(err);
+    }
 });
 
+// Dodavanje nove ulaznice - spremanje u bazu
 router.post('/', async (req, res) => {
     const { Cijena, Datum_prodaje, Zaposlenik, Datum_dolaska } = req.body;
     const novaUlaznica = new Ulaznice({ Cijena, Datum_prodaje, Zaposlenik, Datum_dolaska });
@@ -34,17 +40,18 @@ router.post('/', async (req, res) => {
 router.get('/:id/edit', async (req, res) => {
     try {
         const ulaznica = await Ulaznice.findById(req.params.id);
+        const zaposlenici = await Zaposlenici.find();
         if (!ulaznica) {
             return res.status(404).send('Ulaznica nije pronađena.');
         }
-        res.render('ulaznice/edit', { ulaznica });
+        res.render('ulaznice/edit', { ulaznica, zaposlenici });
     } catch (err) {
         res.status(500).send(err);
     }
 });
 
 // Ažuriranje podataka o ulaznici
-router.put('/:id', async (req, res) => {
+router.post('/:id/edit', async (req, res) => {
     const { Cijena, Datum_prodaje, Zaposlenik, Datum_dolaska } = req.body;
     try {
         const updatedUlaznica = await Ulaznice.findByIdAndUpdate(req.params.id, { Cijena, Datum_prodaje, Zaposlenik, Datum_dolaska }, { new: true });
@@ -68,3 +75,5 @@ router.post('/:id/delete', async (req, res) => {
 });
 
 module.exports = router;
+
+

@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add New Ulaznica</title>
+    <link rel="stylesheet" type="text/css" href="/css/styles.css" />
+</head>
+<body>
+<div class="header header-pages">
+    <div class="sides">
+        <span class="logo"><a href="/">ADMIN</a></span>
+    </div>
+    <div class="sides" id="zoo-navigation">
+        <ul class="menu">
+            <li class="menu-item">
+                <a href="#">Ulaznice</a>
+                <ul class="dropdown">
+                    <li><a href="/ulaznice">Evidencija ulaznica</a></li>
+                </ul>
+            </li>
+            <li class="menu-item">
+                <a href="#">Održavanje</a>
+                <ul class="dropdown">
+                    <li><a href="/odrzavanje">Evidencija održavanja</a></li>
+                    <li><a href="/vrsta_odrzavanja">Vrste održavanja</a></li>
+                    <li><a href="/hrana">Dostupni resursi</a></li>
+                    <li><a href="/hranjenje">Evidentiraj potrošene resurse</a></li>
+                </ul>
+            </li>
+            <li class="menu-item">
+                <a href="#">Zaposlenici</a>
+                <ul class="dropdown">
+                    <li><a href="/zaposlenici">Popis zaposlenika</a></li>
+                    <li><a href="/pozicija">Pozicije</a></li>
+                </ul>
+            </li>
+            <li class="menu-item">
+                <a href="#">Životinje</a>
+                <ul class="dropdown">
+                    <li><a href="/podrucja">Područja zoološkog</a></li>
+                    <li><a href="/smjestaj">Smještaji</a></li>
+                    <li><a href="/vrste_zivotinja">Vrste životinja</a></li>
+                    <li><a href="/zivotinje">Životinje u našem zoološkom</a></li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+</div>
+<div class="zoo-spacing-edit">
+    <div class="image-side-zoo">
+        <h1>NOVO</h1>
+    </div>
+    <div class="text-side-zoo">
+        <h2>Ulaznica</h2>
+        <form class="zoo-edit-view-form" action="/ulaznice" method="post">
+            <label for="Cijena">Cijena:</label>
+            <input type="number" id="Cijena" name="Cijena" required>
+            <br>
+            <label for="Datum_prodaje">Datum prodaje:</label>
+            <input type="date" id="Datum_prodaje" name="Datum_prodaje" required>
+            <br>
+            <label for="Zaposlenik">Zaposlenik:</label>
+            <select id="Zaposlenik" name="Zaposlenik" required>
+                <% zaposlenici.forEach(zaposlenik => { %>
+                    <option value="<%= zaposlenik._id %>"><%= zaposlenik.Ime_i_prezime %></option>
+                <% }); %>
+            </select>
+            <br>
+            <label for="Datum_dolaska">Datum dolaska:</label>
+            <input type="date" id="Datum_dolaska" name="Datum_dolaska" required>
+            <br>
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+</div>
+</body>
+</html>
+
+

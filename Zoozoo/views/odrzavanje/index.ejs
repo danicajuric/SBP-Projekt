@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html>
-
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Održavanje List</title>
     <link rel="stylesheet" type="text/css" href="/css/styles.css" />
 </head>
-
 <body>
     <div class="header header-pages">
         <div class="sides">
@@ -49,53 +49,39 @@
     </div>
     <div class="zoo-spacing">
         <h1>Evidencija održavanja</h1>
-        <a class="add-new-zoo" href="/odrzavanje/new"><img style="height: 2.5em; margin-left: 15px;"
-                src="/assets/add_6431853.png"></a>
+        <a class="add-new-zoo" href="/odrzavanje/new">
+            <img style="height: 2.5em; margin-left: 15px;" src="/assets/add_6431853.png">
+        </a>
         <ul class="lista-zoo">
             <li class="top-level-list">
                 <div class="lista-info-zoo">
-                    <span>
-                        Zaposlenik
-                    </span>
-                    <span>
-                        Smještaj
-                    </span>
-                    <span>
-                        Datum održavanja
-                    </span>
-                    <span>
-                        Vrsta održavanja
-                    </span>
+                    <span>Zaposlenik</span>
+                    <span>Smještaj</span>
+                    <span>Datum održavanja</span>
+                    <span>Vrsta održavanja</span>
                 </div>
                 <div class="inside"></div>
             </li>
             <% odrzavanja.forEach(function(odrzavanje) { %>
                 <li>
                     <div class="lista-info-zoo">
-                        <span>
-                            <%= odrzavanje.Zaposlenik %>
-                        </span> <span>
-                            <%= odrzavanje.Smjestaj %>
-                        </span> <span>
-                            <%= moment(odrzavanje.Datum_i_vrijeme).format('MMMM Do YYYY, h:mm:ss a') %>
-                        </span>
-                        <span>
-                            <%= odrzavanje.Vrsta_odrzavanja %>
-                        </span>
+                        <span><%= odrzavanje.Zaposlenik.Ime_i_prezime %></span>
+                        <span><%= odrzavanje.Smjestaj.Naziv %></span>
+                        <span><%= moment(odrzavanje.Datum_i_vrijeme).format('MMMM Do YYYY, h:mm:ss a') %></span>
+                        <span><%= odrzavanje.Vrsta_odrzavanja.Naziv %></span>
                     </div>
                     <div class="inside">
-                        <a class="zoo-info-edit" href="/odrzavanje/<%= odrzavanje._id %>/edit"><img style="height: 1em;"
-                                src="/assets/pen_10337031.png"></img></a>
+                        <a class="zoo-info-edit" href="/odrzavanje/<%= odrzavanje._id %>/edit">
+                            <img style="height: 1em;" src="/assets/pen_10337031.png">
+                        </a>
                         <form action="/odrzavanje/<%= odrzavanje._id %>/delete" method="post" style="display: inline">
                             <input type="hidden" name="_method" value="DELETE" />
                             <button class="zoo-info-delete" type="submit">Obriši</button>
                         </form>
                     </div>
                 </li>
-                <% }); %>
+            <% }); %>
         </ul>
-
     </div>
 </body>
-
 </html>
