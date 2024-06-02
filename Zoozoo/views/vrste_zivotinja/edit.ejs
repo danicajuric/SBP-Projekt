@@ -54,15 +54,16 @@
         </div>
         <div class="text-side-zoo">
             <h2>Vrste Zivotinja</h2>
-            <form class="zoo-edit-view-form" action="/vrste_zivotinja/<%= vrsteZivotinja._id %>" method="POST">
+            <form class="zoo-edit-view-form" action="/vrste_zivotinja/<%= vrstaZivotinje._id %>/edit" method="POST">
                 <label for="Naziv">Naziv:</label>
-                <input type="text" id="Naziv" name="Naziv" value="<%= vrsteZivotinja.Naziv %>" required>
+                <input type="text" id="Naziv" name="Naziv" value="<%= vrstaZivotinje.Naziv %>" required>
                 <br>
                 <label for="Opis">Opis:</label>
-                <input type="text" id="Opis" name="Opis" value="<%= vrsteZivotinja.Opis %>" required>
+                <input type="text" id="Opis" name="Opis" value="<%= vrstaZivotinje.Opis %>" required>
                 <br>
                 <button type="submit">Submit</button>
             </form>
+            
         </div>
     </div>
 </body>

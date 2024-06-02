@@ -55,19 +55,37 @@
         </div>
         <div class="text-side-zoo">
             <h2>Hranjenje</h2>
-            <form class="zoo-edit-view-form" action="/hranjenje/<%= hranjenje._id %>" method="post">
+            <form class="zoo-edit-view-form" action="/hranjenje/<%= hranjenje._id %>/edit" method="post">
                 <label for="Zaposlenik">Zaposlenik:</label>
-                <input type="text" id="Zaposlenik" name="Zaposlenik" value="<%= hranjenje.Zaposlenik %>" required>
+                <select id="Zaposlenik" name="Zaposlenik" required>
+                    <% zaposlenici.forEach(function(zaposlenik) { %>
+                        <option value="<%= zaposlenik._id %>" <%= hranjenje.Zaposlenik._id.equals(zaposlenik._id) ? 'selected' : '' %>>
+                            <%= zaposlenik.Ime_i_prezime %>
+                        </option>
+                    <% }); %>
+                </select>
                 <br>
                 <label for="Hrana">Hrana:</label>
-                <input type="text" id="Hrana" name="Hrana" value="<%= hranjenje.Hrana %>" required>
+                <select id="Hrana" name="Hrana" required>
+                    <% hrana.forEach(function(hrana) { %>
+                        <option value="<%= hrana._id %>" <%= hranjenje.Hrana._id.equals(hrana._id) ? 'selected' : '' %>>
+                            <%= hrana.Naziv %>
+                        </option>
+                    <% }); %>
+                </select>
                 <br>
                 <label for="Smjestaj">Smještaj:</label>
-                <input type="text" id="Smjestaj" name="Smjestaj" value="<%= hranjenje.Smjestaj %>" required>
+                <select id="Smjestaj" name="Smjestaj" required>
+                    <% smjestaji.forEach(function(smjestaj) { %>
+                        <option value="<%= smjestaj._id %>" <%= hranjenje.Smjestaj._id.equals(smjestaj._id) ? 'selected' : '' %>>
+                            <%= smjestaj.Naziv %>
+                        </option>
+                    <% }); %>
+                </select>
                 <br>
                 <label for="Datum_i_vrijeme">Datum i vrijeme:</label>
                 <input type="datetime-local" id="Datum_i_vrijeme" name="Datum_i_vrijeme"
-                    value="<%= hranjenje.Datum_i_vrijeme %>" required>
+                    value="<%= new Date(hranjenje.Datum_i_vrijeme).toISOString().slice(0, 16) %>" required>
                 <br>
                 <button type="submit">Update Hranjenje</button>
             </form>

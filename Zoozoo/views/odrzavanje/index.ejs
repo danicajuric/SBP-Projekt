@@ -65,10 +65,10 @@
             <% odrzavanja.forEach(function(odrzavanje) { %>
                 <li>
                     <div class="lista-info-zoo">
-                        <span><%= odrzavanje.Zaposlenik.Ime_i_prezime %></span>
-                        <span><%= odrzavanje.Smjestaj.Naziv %></span>
-                        <span><%= moment(odrzavanje.Datum_i_vrijeme).format('MMMM Do YYYY, h:mm:ss a') %></span>
-                        <span><%= odrzavanje.Vrsta_odrzavanja.Naziv %></span>
+                        <span><%= odrzavanje.Zaposlenik ? odrzavanje.Zaposlenik.Ime_i_prezime : 'N/A' %></span>
+                        <span><%= odrzavanje.Smjestaj ? odrzavanje.Smjestaj.Naziv : 'N/A' %></span>
+                        <span><%= odrzavanje.Datum_i_vrijeme ? moment(odrzavanje.Datum_i_vrijeme).format('MMMM Do YYYY, h:mm:ss a') : 'N/A' %></span>
+                        <span><%= odrzavanje.Vrsta_odrzavanja ? odrzavanje.Vrsta_odrzavanja.Naziv : 'N/A' %></span>
                     </div>
                     <div class="inside">
                         <a class="zoo-info-edit" href="/odrzavanje/<%= odrzavanje._id %>/edit">
@@ -81,6 +81,7 @@
                     </div>
                 </li>
             <% }); %>
+            
         </ul>
     </div>
 </body>

@@ -1,3 +1,5 @@
+<!-- views/zivotinje/new.ejs -->
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -11,28 +13,7 @@
         </div>
         <div class="sides" id="zoo-navigation">
             <ul class="menu">
-                <li class="menu-item">
-                    <a href="#">Ulaznice</a>
-                    <ul class="dropdown">
-                        <li><a href="/ulaznice">Evidencija ulaznica</a></li>
-                    </ul>
-                </li>
-                <li class="menu-item">
-                    <a href="#">Održavanje</a>
-                    <ul class="dropdown">
-                        <li><a href="/odrzavanje">Evidencija održavanja</a></li>
-                        <li><a href="/vrsta_odrzavanja">Vrste održavanja</a></li>
-                        <li><a href="/hrana">Dostupni resursi</a></li>
-                        <li><a href="/hranjenje">Evidentiraj potrošene resurse</a></li>
-                    </ul>
-                </li>
-                <li class="menu-item">
-                    <a href="#">Zaposlenici</a>
-                    <ul class="dropdown">
-                        <li><a href="/zaposlenici">Popis zaposlenika</a></li>
-                        <li><a href="/pozicija">Pozicije</a></li>
-                    </ul>
-                </li>
+                <!-- Ostatak koda između -->
                 <li class="menu-item">
                     <a href="#">Životinje</a>
                     <ul class="dropdown">
@@ -70,7 +51,7 @@
                 <label for="Smjestaj">Smještaj:</label>
                 <select id="Smjestaj" name="Smjestaj" required>
                     <% smjestaji.forEach(smjestaj => { %>
-                        <option value="<%= smjestaj._id %>"><%= smjestaj.naziv %></option>
+                        <option value="<%= smjestaj._id %>"><%= smjestaj.Naziv %></option>
                     <% }) %>
                 </select>
                 <br>
@@ -80,4 +61,3 @@
     </div>
 </body>
 </html>
-

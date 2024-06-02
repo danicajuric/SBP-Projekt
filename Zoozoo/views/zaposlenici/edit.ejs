@@ -1,4 +1,3 @@
-<!-- views/zaposlenici/edit.ejs -->
 <!DOCTYPE html>
 <html>
 
@@ -54,28 +53,31 @@
         </div>
         <div class="text-side-zoo">
             <h2>Zaposlenici</h2>
-            <form class="zoo-edit-view-form" action="/zaposlenici/<%= zaposlenici._id %>" method="POST">
+            <form class="zoo-edit-view-form" action="/zaposlenici/<%= zaposlenik._id %>" method="POST">
                 <label for="Ime_i_prezime">Ime i Prezime:</label>
-                <input type="text" id="Ime_i_prezime" name="Ime_i_prezime" value="<%= zaposlenici.Ime_i_prezime %>"
-                    required>
+                <input type="text" id="Ime_i_prezime" name="Ime_i_prezime" value="<%= zaposlenik.Ime_i_prezime %>" required>
                 <br>
                 <label for="JMBG">JMBG:</label>
-                <input type="text" id="JMBG" name="JMBG" value="<%= zaposlenici.JMBG %>" required>
+                <input type="text" id="JMBG" name="JMBG" value="<%= zaposlenik.JMBG %>" required>
                 <br>
                 <label for="Datum_rodjenja">Datum Rodjenja:</label>
-                <input type="date" id="Datum_rodjenja" name="Datum_rodjenja" value="<%= zaposlenici.Datum_rodjenja %>"
-                    required>
+                <input type="date" id="Datum_rodjenja" name="Datum_rodjenja" value="<%= zaposlenik.Datum_rodjenja.toISOString().split('T')[0] %>" required>
                 <br>
                 <label for="Datum_zaposlenja">Datum Zaposlenja:</label>
-                <input type="date" id="Datum_zaposlenja" name="Datum_zaposlenja"
-                    value="<%= zaposlenici.Datum_zaposlenja %>" required>
+                <input type="date" id="Datum_zaposlenja" name="Datum_zaposlenja" value="<%= zaposlenik.Datum_zaposlenja.toISOString().split('T')[0] %>" required>
                 <br>
                 <label for="Pozicija">Pozicija:</label>
-                <input type="text" id="Pozicija" name="Pozicija" value="<%= zaposlenici.Pozicija.Naziv %>" required>
+                <select id="Pozicija" name="Pozicija" required>
+                    <% pozicije.forEach(pozicija => { %>
+                        <option value="<%= pozicija._id %>" <% if (pozicija._id.toString() === zaposlenik.Pozicija.toString()) { %> selected <% } %>><%= pozicija.Naziv %></option>
+                    <% }) %>
+                </select>
                 <br>
                 <button type="submit">Submit</button>
             </form>
         </div>
     </div>
 </body>
+
 </html>
+

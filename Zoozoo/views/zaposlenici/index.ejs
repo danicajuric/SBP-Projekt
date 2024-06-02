@@ -1,4 +1,3 @@
-<!-- views/zaposlenici/index.ejs -->
 <!DOCTYPE html>
 <html>
 
@@ -55,41 +54,37 @@
         <ul class="lista-zoo">
             <li class="top-level-list">
                 <div class="lista-info-zoo">
-                    <span>
-                        Ime i prezime
-                    </span> 
-                    <span>
-                        JMBG
-                    </span> 
-                    <span>
-                        Datum rođenja
-                    </span>
-                    <span>
-                        Datum zaposlenja
-                    </span>
-                    <span>
-                        Pozicija
-                    </span>
+                    <span>Ime i prezime</span>
+                    <span>JMBG</span>
+                    <span>Datum rođenja</span>
+                    <span>Datum zaposlenja</span>
+                    <span>Pozicija</span>
                 </div>
                 <div class="inside"></div>
             </li>
-            <% zaposlenici.forEach(z=> { %>
-                <li>
-                    <div class="lista-info-zoo">
-                    <span><%= z.Ime_i_prezime %></span> <span><%= z.JMBG %></span> <span><%= moment(z.Datum_rodjenja).format('MMMM Do YYYY, h:mm:ss a') %></span> <span><%= z.Datum_zaposlenja %></span>
-                <span><%= z.Pozicija %></span>
-                    </div>
-                    <div class="inside">
-                        <a class="zoo-info-edit" href="/zaposlenici/<%= z._id %>/edit"><img style="height: 1em;"
-                                src="/assets/pen_10337031.png"></img></a>
-                        <form action="/zaposlenici/<%= z._id %>/delete" method="post" style="display:inline;">
-                            <button class="zoo-info-delete" type="submit">Delete</button>
-                        </form>
-                    </div>
-                </li>
-                <% }) %>
+            <% zaposlenici.forEach(z => { %>
+            <li>
+                <div class="lista-info-zoo">
+                    <span><%= z.Ime_i_prezime %></span>
+                    <span><%= z.JMBG %></span>
+                    <span><%= moment(z.Datum_rodjenja).format('MMMM Do YYYY, h:mm:ss a') %></span>
+                    <span><%= z.Datum_zaposlenja %></span>
+                    <% if (z.Pozicija) { %>
+                        <span><%= z.Pozicija.Naziv %></span>
+                    <% } else { %>
+                        <span>Nepoznata pozicija</span>
+                    <% } %>
+                </div>
+                <div class="inside">
+                    <a class="zoo-info-edit" href="/zaposlenici/<%= z._id %>/edit"><img style="height: 1em;"
+                            src="/assets/pen_10337031.png"></img></a>
+                    <form action="/zaposlenici/<%= z._id %>/delete" method="post" style="display:inline;">
+                        <button class="zoo-info-delete" type="submit">Delete</button>
+                    </form>
+                </div>
+            </li>
+            <% }) %>
         </ul>
-
     </div>
 </body>
 

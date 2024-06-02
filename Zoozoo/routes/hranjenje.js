@@ -1,4 +1,3 @@
-// routes/hranjenje.js
 const express = require('express');
 const router = express.Router();
 const Hranjenje = require('../models/hranjenje');
@@ -9,7 +8,10 @@ const Smjestaj = require('../models/smjestaj');
 // Prikaz svih hranjenja
 router.get('/', async (req, res) => {
     try {
-        const hranjenje = await Hranjenje.find();
+        const hranjenje = await Hranjenje.find()
+            .populate('Zaposlenik', 'Ime_i_prezime')
+            .populate('Hrana', 'Naziv')
+            .populate('Smjestaj', 'Naziv');
         res.render('hranjenje/index', { hranjenje });
     } catch (err) {
         res.status(500).send(err);
@@ -19,10 +21,8 @@ router.get('/', async (req, res) => {
 // Prikaz forme za dodavanje novog hranjenja
 router.get('/new', async (req, res) => {
     try {
-        const zaposlenici = await Zaposlenici.find();
-        const hrana = await Hrana.find();
-        const smjestaji = await Smjestaj.find();
-        res.render('hranjenje/new', { zaposlenici, hrana, smjestaji });
+        const zivotinje = await Zivotinje.find();
+        res.render('zivotinje/new', { zivotinje });
     } catch (err) {
         res.status(500).send(err);
     }
@@ -44,7 +44,10 @@ router.post('/', async (req, res) => {
 // Prikaz forme za uređivanje hranjenja
 router.get('/:id/edit', async (req, res) => {
     try {
-        const hranjenje = await Hranjenje.findById(req.params.id);
+        const hranjenje = await Hranjenje.findById(req.params.id)
+            .populate('Zaposlenik')
+            .populate('Hrana')
+            .populate('Smjestaj');
         if (!hranjenje) {
             return res.status(404).send('Hranjenje nije pronađeno.');
         }
@@ -58,7 +61,7 @@ router.get('/:id/edit', async (req, res) => {
 });
 
 // Ažuriranje podataka o hranjenju
-router.put('/:id', async (req, res) => {
+router.post('/:id/edit', async (req, res) => { // Promijenjeno iz PUT u POST
     const { Zaposlenik, Hrana, Smjestaj, Datum_i_vrijeme } = req.body;
     try {
         const updatedHranjenje = await Hranjenje.findByIdAndUpdate(req.params.id, { Zaposlenik, Hrana, Smjestaj, Datum_i_vrijeme }, { new: true });

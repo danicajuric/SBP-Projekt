@@ -43,7 +43,7 @@ router.get('/:id/edit', async (req, res) => {
 });
 
 // Ažuriranje podataka o poziciji
-router.put('/:id', async (req, res) => {
+router.post('/:id/edit', async (req, res) => {
     const { Naziv, Opis } = req.body;
     try {
         const updatedPozicija = await Pozicija.findByIdAndUpdate(req.params.id, { Naziv, Opis }, { new: true });
@@ -57,7 +57,7 @@ router.put('/:id', async (req, res) => {
 });
 
 // Brisanje pozicije
-router.delete('/:id', async (req, res) => {
+router.post('/:id/delete', async (req, res) => {
     try {
         const deletedPozicija = await Pozicija.findByIdAndDelete(req.params.id);
         if (!deletedPozicija) {
@@ -68,5 +68,7 @@ router.delete('/:id', async (req, res) => {
         res.status(500).send(err);
     }
 });
+
+
 
 module.exports = router;

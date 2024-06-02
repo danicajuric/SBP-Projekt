@@ -75,5 +75,3 @@ router.post('/:id/delete', async (req, res) => {
 });
 
 module.exports = router;
-
-

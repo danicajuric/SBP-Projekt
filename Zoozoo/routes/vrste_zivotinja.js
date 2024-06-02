@@ -44,7 +44,7 @@ router.get('/:id/edit', async (req, res) => {
 });
 
 // Ažuriranje podataka o vrsti životinje
-router.put('/:id', async (req, res) => {
+router.post('/:id/edit', async (req, res) => {
     const { Naziv, Opis } = req.body;
     try {
         const updatedVrstaZivotinje = await VrsteZivotinja.findByIdAndUpdate(req.params.id, { Naziv, Opis }, { new: true });
@@ -56,6 +56,7 @@ router.put('/:id', async (req, res) => {
         res.status(500).send(err);
     }
 });
+
 
 // Brisanje vrste životinje
 router.post('/:id/delete', async (req, res) => {

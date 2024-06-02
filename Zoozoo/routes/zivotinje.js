@@ -16,8 +16,8 @@ router.get('/', async (req, res) => {
 // Dodavanje nove životinje
 router.get('/new', async (req, res) => {
     try {
-        const smjestaji = await Smjestaj.find(); // Dohvaćamo sve smještaje iz baze
-        res.render('zivotinje/new', { smjestaji });
+        const smjestaji = await Smjestaj.find();
+        res.render('zivotinje/new', { smjestaji: smjestaji }); 
     } catch (err) {
         res.status(500).send(err);
     }
